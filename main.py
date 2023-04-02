@@ -1,3 +1,4 @@
+from mtgstand_api import getCard
 import os
 from scan_main import cropImage
 import time
@@ -8,5 +9,9 @@ cmd1= "raspistill -o "
 cmd1+=file_name
 os.system(cmd1)
 
-cropImage("test.jpg")
+newImage = cropImage("test.jpg")
 
+getCard(newImage)
+
+os.remove(newImage)
+os.remove(file_name)

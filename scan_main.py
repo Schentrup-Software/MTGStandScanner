@@ -56,3 +56,5 @@ def cropImage(imageFile):
 	up_file+=file_n
 	up_file+=".png"
 	cv2.imwrite(up_file, warped)
+
+	return up_file
