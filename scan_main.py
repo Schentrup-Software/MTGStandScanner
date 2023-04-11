@@ -19,11 +19,6 @@ def cropImage(imageFile):
 	gray = cv2.GaussianBlur(gray, (5, 5), 0)
 	edged = cv2.Canny(gray, 75, 200)
 
-	# show the original image and the edge detected image
-	cv2.imshow("Image", image)
-	cv2.imshow("Edged", edged)
-	cv2.destroyAllWindows()
-
 	# find the contours in the edged image, keeping only the
 	# largest ones, and initialize the screen contour
 	(cnts, _) = cv2.findContours(edged.copy(), cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
@@ -43,18 +38,10 @@ def cropImage(imageFile):
 
 	# show the contour (outline) of the piece of paper
 	cv2.drawContours(image, [screenCnt], -1, (0, 255, 0), 2)
-	cv2.imshow("Outline", image)
-	#cv2.waitKey(0)
-	cv2.destroyAllWindows()
 
-	# apply the four point transform to obtain a top-down
-	# view of the original image
 	warped = four_point_transform(orig, screenCnt.reshape(4, 2) * ratio)
 
-	up_file="sc_"
-	file_n=time.strftime("%a_%d_%m_%Y_%M")
-	up_file+=file_n
-	up_file+=".png"
+	up_file="sc_result.png"
 	cv2.imwrite(up_file, warped)
 
 	return up_file

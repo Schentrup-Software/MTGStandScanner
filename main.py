@@ -1,17 +1,15 @@
 from mtgstand_api import getCard
-import os
 from scan_main import cropImage
-import time
+from picamera import PiCamera
 
+imageName = "rawImage.png"
 
-file_name="test.jpg"
-cmd1= "raspistill -o "
-cmd1+=file_name
-os.system(cmd1)
+camera = PiCamera()
+camera.capture(imageName)
 
-newImage = cropImage("test.jpg")
+newImage = cropImage(imageName)
 
 getCard(newImage)
 
-os.remove(newImage)
-os.remove(file_name)
+#os.remove(newImage)
+#os.remove(file_name)
